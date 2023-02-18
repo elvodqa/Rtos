@@ -1,4 +1,5 @@
 ﻿using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
 
 namespace Rtos.Core.Objects;
 
@@ -46,4 +47,11 @@ public class HitObject
     public virtual void Draw(GameTime gameTime)
     {
     }
+/*
+    public Texture2D LoadFromStream(GameBase game, string path)
+    {
+        FileStream stream =
+        Texture2D.FromStream(game.GraphicsDevice, 
+            File.Open("Skins/default/hitcircle.png", FileMode.Open, FileAccess.Read));
+    } */
 }

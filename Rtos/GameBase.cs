@@ -46,18 +46,15 @@ public class GameBase : Game
     {
         Input.GetKeyboardState();
         Input.GetMouseState();
-
-        //Console.WriteLine(_musicPlayer.GetTrackPos());
         
         if (Input.IsScrolled(Orientation.Up))
-        { ;
+        { 
             _musicPlayer.Volume += 0.05f;
         }
         else if (Input.IsScrolled(Orientation.Down))
         {
             _musicPlayer.Volume -= 0.05f;
-        } 
-        Console.WriteLine(_musicPlayer.Volume);
+        }
         
         base.Update(gameTime);
         Input.FixScrollLater();
@@ -66,7 +63,9 @@ public class GameBase : Game
     protected override void Draw(GameTime gameTime)
     {
         GraphicsDevice.Clear(ClearColor);
+        SpriteBatch.Begin();
         _beatmap.HitObjects[9].Draw(gameTime);
+        SpriteBatch.End();
         base.Draw(gameTime);
     }
 }
