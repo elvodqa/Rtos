@@ -10,7 +10,6 @@ public enum CurveType : byte
     Bezier = 1,
     Linear = 2,
     Perfect = 3,
-    Circle = 4,
 }
 
 public class CurvePoint
@@ -37,6 +36,7 @@ public class Slider : HitObject
     private Texture2D[] _numberTexture;
     private GameBase _game;
     private Vector2 _origin;
+    private List<Vector2> _bodyPoints;
 
     public Slider()
     {
@@ -64,21 +64,36 @@ public class Slider : HitObject
                     File.OpenRead($"Skins/default/default-{numberStr[i]}.png"));
         }
         _origin = new Vector2(_hitCircleTexture.Width / 2f, _hitCircleTexture.Height / 2f);
-
     }
 
     public override void Draw(GameTime gameTime)
     {
         base.Draw(gameTime);
-        // draw slider body
-        for (int i = 0; i < CurvePoints.Count - 1; i++)
+        
+    }
+    
+    
+    private List<Vector2> PointsBetween2Linear(Vector2 p0, Vector2 p1, int count)
+    {
+        List<Vector2> points = new();
+        Vector2 diff = p1 - p0;
+        for (int i = 0; i < count; i++)
         {
-            var start = CurvePoints[i].Position;
-            var end = CurvePoints[i + 1].Position;
-            var distance = Vector2.Distance(start, end);
-            var angle = (float)Math.Atan2(end.Y - start.Y, end.X - start.X);
-            var scale = new Vector2(distance / _sliderTexture.Width, 1f);
-            _game.SpriteBatch.Draw(_sliderTexture, start, null, Color.White, angle, Vector2.Zero, scale, SpriteEffects.None, 0f);
+            points.Add(p0 + (diff * (i / (float)count)));
         }
+
+        return points;
+    }
+
+    private List<Vector2> PointsBetweenXBezier(List<Vector2> positions, int count)
+    {
+        return null;
+    }
+
+
+    public static float Magnitude(Vector2 vector)
+    {
+        //return (float)Math.Sqrt((vector.X * vector.X) + (vector.Y * vector.Y));
+        return null;
     }
 }
